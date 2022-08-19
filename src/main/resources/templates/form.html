@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
+        integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    <link rel="stylesheet" href="../static/css/style.css" th:href="@{/css/style.css}">
+    <title>Cadastro de Cliente</title>
+</head>
+
+<body>
+    <h1>Cadastro de Cliente</h1>
+    <form action="#" th:action="@{/clientes/salvar}" th:object="${cliente}" method="POST">
+        <input type="hidden" id="id" th:field="*{id}">
+        <div class="form-row">
+            <div class="form-group col-md-6">
+                <label for="inputNome">Nome</label>
+                <span style="color: red ; font-size: 12px;" th:if="${#fields.hasErrors('nome')}" th:errors="*{nome}" class="text-danger"></span>
+                <input th:field="*{nome}" type="text" class="form-control" id="nome">
+            </div>
+            <div class="form-group col-md-6">
+                <label for="inputEndereco">Endereço</label>
+                <span style="color: red ; font-size: 12px;" th:if="${#fields.hasErrors('endereco')}" th:errors="*{endereco}" class="text-danger"></span>
+                <input th:field="*{endereco}" type="text" class="form-control" id="endereco">
+            </div>
+        </div>
+        <div class="form-row">
+            <div class="form-group col-md-6">
+                <label for="inputCPF">CPF</label>
+                <span style="color: red ; font-size: 12px;" th:if="${#fields.hasErrors('cpf')}" th:errors="*{cpf}" class="text-danger"></span>
+                <input th:field="*{cpf}" type="text" class="form-control" id="cpf" oninput="mascara(this)">
+            </div>
+            <div class="form-group col-md-6">
+                <label for="inputCEP">CEP</label>
+                <span style="color: red ; font-size: 12px;" th:if="${#fields.hasErrors('cep')}" th:errors="*{cep}" class="text-danger"></span>
+                <input th:field="*{cep}" type="text" class="form-control" id="cep" oninput="mcep(this)">
+            </div>
+        </div>
+        <div class="form-row">
+            <div class="form-group col-md-6">
+                <label for="inputEmail">E-Mail</label>
+                <span style="color: red ; font-size: 12px;" th:if="${#fields.hasErrors('email')}" th:errors="*{email}" class="text-danger"></span>
+                <input th:field="*{email}" type="text" class="form-control" id="email">
+            </div>
+            <div class="form-group col-md-6">
+                <label for="inputBairro">Bairro</label>
+                <span style="color: red ; font-size: 12px;" th:if="${#fields.hasErrors('bairro')}" th:errors="*{bairro}" class="text-danger"></span>
+                <input th:field="*{bairro}" type="text" class="form-control" id="bairro">
+            </div>
+        </div>
+        <div class="form-row">
+            <div class="form-group col-md-6">
+                <label for="inputData">Data de Nascimento</label>
+                <span style="color: red ; font-size: 12px;" th:if="${#fields.hasErrors('dataNascimento')}" th:errors="*{dataNascimento}" class="text-danger"></span>
+                <input th:field="*{dataNascimento}" type="text" class="form-control" id="dataNascimento" oninput="data(this)">
+            </div>
+            <div class="form-group col-md-6">
+                <label for="inputCidade">Cidade</label>
+                <span style="color: red ; font-size: 12px;" th:if="${#fields.hasErrors('cidade')}" th:errors="*{cidade}" class="text-danger"></span>
+                <input th:field="*{cidade}" type="text" class="form-control" id="cidade">
+            </div>
+        </div>
+        <div class="form-row">
+            <div class="form-group col-md-6">
+            </div>
+            <div class="form-group col-md-6">
+                <label for="inputEstado">Estado</label>
+                <span style="color: red ; font-size: 12px;" th:if="${#fields.hasErrors('estado')}" th:errors="*{estado}" class="text-danger"></span>
+                <select th:field="*{estado}" id="inputEstado" class="form-control">
+                    <option selected value="">Escolher...</option>
+                    <option value="AC">Acre</option>
+                    <option value="AL">Alagoas</option>
+                    <option value="AP">Amapá</option>
+                    <option value="AM">Amazonas</option>
+                    <option value="BA">Bahia</option>
+                    <option value="CE">Ceará</option>
+                    <option value="ES">Espírito Santo</option>
+                    <option value="GO">Goiás</option>
+                    <option value="MA">Maranhão</option>
+                    <option value="MT">Mato Grosso</option>
+                    <option value="MS">Mato Grosso do Sul</option>
+                    <option value="MG">Minas Gerais</option>
+                    <option value="PA">Pará</option>
+                    <option value="PB">Paraíba</option>
+                    <option value="PR">Paraná</option>
+                    <option value="PE">Pernambuco</option>
+                    <option value="PI">Piauí</option>
+                    <option value="RJ">Rio de Janeiro</option>
+                    <option value="RN">Rio Grande do Norte</option>
+                    <option value="RS">Rio Grande do Sul</option>
+                    <option value="RO">Rondônia</option>
+                    <option value="RR">Roraima</option>
+                    <option value="SC">Santa Catarina</option>
+                    <option value="SP">São Paulo</option>
+                    <option value="SE">Sergipe</option>
+                    <option value="TO">Tocantins</option>
+                    <option value="DF">Distrito Federal</option>
+
+                </select>
+            </div>
+        </div>
+        <button type="submit" class="btn btn-primary" style="float: right;">Salvar</button>
+    </form>
+    <script th:src="@{/js/script.js}"></script>
+</body>
+
+</html>
